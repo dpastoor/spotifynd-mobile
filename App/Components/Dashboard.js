@@ -2,6 +2,7 @@
  * Created by devin on 1/12/16.
  */
 var React = require('react-native');
+var Seperator = require('./Helpers/Seperator');
 var {
   Text,
   View,
@@ -29,7 +30,14 @@ var styles = StyleSheet.create({
 class Dashboard extends React.Component{
   // if no styles are set it will just render an empty page
   render() {
-    let images = this.props.allTrips.map((trip, i) =>  <Image key={i} source={{uri: trip.image}} style={styles.image} />)
+    let images = this.props.allTrips.map((trip, i) => {
+     return (
+       <View key={i}>
+         <Image source={{uri: trip.image}} style={styles.image}/>
+         <Seperator />
+       </View>
+      )
+    })
     return (
         <ScrollView style={styles.container} >
           {images}
