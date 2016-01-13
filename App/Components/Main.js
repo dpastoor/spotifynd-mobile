@@ -3,7 +3,7 @@
  */
 var React = require('react-native');
 var config = require('../config');
-
+var api = require('../Utils/api');
 var {
   View,
   Text,
@@ -85,14 +85,11 @@ class Main extends React.Component{
     //fetch('https://api.foursquare.com/v2/venues/explore?client_id='+
     //  config.API+
     //  '&client_secret='+config.SECRET+'&v=20130815&near='+this.state.cityState+'&venuePhotos=1')
-
+    api.getAllTrips()
       .then(function(res) {
-      console.log('resolved:')
+        console.log('result from /trips')
         console.log(res)
-        console.log(JSON.parse(res._bodyText));
     })
-    // once loaded turn back off to false
-    console.log("SUBMIT: " + this.state.cityState)
   }
   render() {
     return(
