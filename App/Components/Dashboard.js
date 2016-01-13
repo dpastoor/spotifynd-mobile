@@ -3,6 +3,7 @@
  */
 var React = require('react-native');
 var Seperator = require('./Helpers/Seperator');
+var Trip = require('./Trip');
 var {
   Text,
   View,
@@ -33,7 +34,7 @@ class Dashboard extends React.Component{
     let images = this.props.allTrips.map((trip, i) => {
      return (
        <View key={i}>
-         <Image source={{uri: trip.image}} style={styles.image}/>
+         <Trip tripData={trip} />
          <Seperator />
        </View>
       )
