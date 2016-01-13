@@ -87,8 +87,20 @@ class Main extends React.Component{
     //  '&client_secret='+config.SECRET+'&v=20130815&near='+this.state.cityState+'&venuePhotos=1')
     api.getAllTrips()
       .then(function(res) {
-        console.log('result from /trips')
-        console.log(res)
+        console.log('result from /trips');
+        console.log(res);
+
+        // can navigate around from the NavigatorIOS component we set up in index.ios.js
+        this.props.navigator.push({
+          title: "Existing Trip Playlists",
+          component: Dashboard,
+          passProps: {allTrips: res}
+        });
+        this.setState({
+          isLoading: false,
+          error: false,
+          cityState: ''
+        });
     })
   }
   render() {
