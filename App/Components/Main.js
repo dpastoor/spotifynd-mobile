@@ -94,8 +94,9 @@ class Main extends React.Component{
         console.log('component is fresh');
         // can navigate around from the NavigatorIOS component we set up in index.ios.js
         this.props.navigator.push({
-          title: 'Spotifynd',
-          component: Dashboard
+          title: 'Available Trip Playlists',
+          component: Dashboard,
+          passProps: {allTrips: res}
         });
 
         console.log('after push state');
@@ -123,6 +124,11 @@ class Main extends React.Component{
         >
           <Text style={styles.buttonText}> SEARCH</Text>
         </TouchableHighlight>
+        <ActivityIndicatorIOS
+          animating={this.state.isLoading}
+          color="#111"
+          size="large"
+        />
       </View>
     )
   }
