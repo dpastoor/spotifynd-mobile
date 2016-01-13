@@ -106,7 +106,7 @@ class Main extends React.Component{
           cityState: ''
         });
         console.log('should have navigated')
-    });
+    })
   }
   render() {
     return(

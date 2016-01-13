@@ -3,7 +3,7 @@
  */
 var api = {
   getAllTrips() {
-    var url =  'http://localhost:8080/trips';
+    var url =  'http://localhost:8080/api/trips';
     return fetch(url).then((res) => res.json());
   }
 };
