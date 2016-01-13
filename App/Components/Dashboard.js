@@ -7,6 +7,7 @@ var {
   View,
   StyleSheet,
   Image,
+  ScrollView,
   TouchableHighlight // wrapper to make views respond properly to touches
 } = React;
 
@@ -30,10 +31,9 @@ class Dashboard extends React.Component{
   render() {
     let images = this.props.allTrips.map((trip, i) =>  <Image key={i} source={{uri: trip.image}} style={styles.image} />)
     return (
-
-      <View style={styles.container} >
-        {images}
-      </View>
+        <ScrollView style={styles.container} >
+          {images}
+        </ScrollView>
     )
   }
 }
