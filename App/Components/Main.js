@@ -54,14 +54,14 @@ var styles = StyleSheet.create({
     marginTop: 10,
     alignSelf: 'stretch',
     justifyContent: 'center'
-  },
+  }
 });
 
 class Main extends React.Component{
   constructor(props) {
     super(props);
     this.state = {
-      username: '',
+      cityState: '',
       isLoading: false,
       error: false
     }
@@ -69,7 +69,7 @@ class Main extends React.Component{
 
   handleChange(event) {
     this.setState({
-      username: event.nativeEvent.text
+      cityState: event.nativeEvent.text
     });
   }
 
@@ -84,15 +84,15 @@ class Main extends React.Component{
     //directly hitting the 4square api
     //fetch('https://api.foursquare.com/v2/venues/explore?client_id='+
     //  config.API+
-    //  '&client_secret='+config.SECRET+'&v=20130815&near='+this.state.username+'&venuePhotos=1')
-    
+    //  '&client_secret='+config.SECRET+'&v=20130815&near='+this.state.cityState+'&venuePhotos=1')
+
       .then(function(res) {
       console.log('resolved:')
         console.log(res)
         console.log(JSON.parse(res._bodyText));
     })
     // once loaded turn back off to false
-    console.log("SUBMIT: " + this.state.username)
+    console.log("SUBMIT: " + this.state.cityState)
   }
   render() {
     return(
@@ -100,7 +100,7 @@ class Main extends React.Component{
         <Text style={styles.title}> Search for a Place </Text>
         <TextInput
           style={styles.searchInput}
-          value={this.state.username}
+          value={this.state.cityState}
           onChange={this.handleChange.bind(this)}
         />
         <TouchableHighlight
