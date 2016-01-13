@@ -88,7 +88,7 @@ class Main extends React.Component{
     //  '&client_secret='+config.SECRET+'&v=20130815&near='+this.state.cityState+'&venuePhotos=1')
     api.getAllTrips()
       .then((res) => {
-        console.log('all trips: ')
+        console.log('all trips: ');
         console.log(res);
         // can navigate around from the NavigatorIOS component we set up in index.ios.js
         this.props.navigator.push({
@@ -101,7 +101,7 @@ class Main extends React.Component{
           error: false,
           cityState: ''
         });
-    })
+    });
   }
   render() {
     return(
@@ -127,6 +127,6 @@ class Main extends React.Component{
       </View>
     )
   }
-};
+}
 
 module.exports = Main;

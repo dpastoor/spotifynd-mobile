@@ -9,7 +9,7 @@ var {
 
 var styles = StyleSheet.create({
   container: {
-    paddingBottom: 10,
+    padding: 10,
     flexDirection: 'row'
   },
   name: {
@@ -19,20 +19,22 @@ var styles = StyleSheet.create({
     marginBottom: 5,
     color: 'white'
   },
+  rowTitle: {
+    color: '#48BBEC',
+    fontSize: 16
+  },
+  rowContent: {
+    flex: 2,
+    alignSelf: 'flex-start'
+  },
   handle: {
     alignSelf: 'center',
     fontSize: 16,
     color: 'white'
   },
-  text: {
-   flex: 2,
-    paddingTop: 20,
-    alignSelf: 'flex-start'
-  },
   image: {
     flex: 1,
     height: 100,
-    marginTop: 10,
     alignSelf: 'flex-end'
   }
 
@@ -44,7 +46,10 @@ class Trip extends React.Component{
     let {image, name, destination} = this.props.tripData;
     return (
       <View style={styles.container}>
-        <Text style={styles.text}> {name} at {destination[0] + ', ' + destination[1] } </Text>
+        <View style={styles.rowContent}>
+          <Text style={styles.rowTitle}> {name} </Text>
+          <Text> {destination[0] + ', ' + destination[1] } </Text>
+        </View>
         <Image source={{uri: image}} style={styles.image}/>
       </View>
 
