@@ -12,25 +12,13 @@ var styles = StyleSheet.create({
     padding: 10,
     flexDirection: 'row'
   },
-  name: {
-    alignSelf: 'center',
-    fontSize: 21,
-    marginTop: 10,
-    marginBottom: 5,
-    color: 'white'
-  },
   rowTitle: {
     color: '#48BBEC',
-    fontSize: 16
+    fontSize: 25
   },
   rowContent: {
     flex: 2,
     alignSelf: 'flex-start'
-  },
-  handle: {
-    alignSelf: 'center',
-    fontSize: 16,
-    color: 'white'
   },
   image: {
     flex: 1,
