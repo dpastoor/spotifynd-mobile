@@ -5,6 +5,7 @@ var React = require('react-native');
 var config = require('../config');
 var api = require('../Utils/api');
 var Dashboard = require('./Dashboard');
+var TripDashboard = require('./TripDashboard');
 var {
   View,
   Text,
@@ -62,7 +63,7 @@ class Main extends React.Component{
   constructor(props) {
     super(props);
     this.state = {
-      cityState: '',
+      roomId: '',
       isLoading: false,
       error: false
     }
@@ -70,12 +71,33 @@ class Main extends React.Component{
 
   handleChange(event) {
     this.setState({
-      cityState: event.nativeEvent.text
+      roomId: event.nativeEvent.text
     });
   }
 
   handleSubmit(event) {
-     // underlayColor --> any time press on button background goes white
+    this.setState({
+      isLoading: true
+    });
+    //api.getAllTrips()
+    //  .then((res) => {
+    //    console.log('all trips: ');
+    //    console.log(res);
+        // can navigate around from the NavigatorIOS component we set up in index.ios.js
+        this.props.navigator.push({
+          title: 'Trip',
+          component: TripDashboard,
+          passProps: {roomId: this.state.roomId}
+        });
+        this.setState({
+          isLoading: false,
+          error: false,
+          roomId: ''
+        });
+    //});
+  }
+  showPossibleTrips(event) {
+    // underlayColor --> any time press on button background goes white
     // eventually will fetch data from 4square
     //reroute to next passing in information
     // for now will just fake
@@ -85,11 +107,9 @@ class Main extends React.Component{
     //directly hitting the 4square api
     //fetch('https://api.foursquare.com/v2/venues/explore?client_id='+
     //  config.API+
-    //  '&client_secret='+config.SECRET+'&v=20130815&near='+this.state.cityState+'&venuePhotos=1')
+    //  '&client_secret='+config.SECRET+'&v=20130815&near='+this.state.roomId+'&venuePhotos=1')
     api.getAllTrips()
       .then((res) => {
-        console.log('all trips: ');
-        console.log(res);
         // can navigate around from the NavigatorIOS component we set up in index.ios.js
         this.props.navigator.push({
           title: 'Trips',
@@ -99,17 +119,17 @@ class Main extends React.Component{
         this.setState({
           isLoading: false,
           error: false,
-          cityState: ''
+          roomId: ''
         });
-    });
+      });
   }
   render() {
     return(
       <View style={styles.mainContainer}>
-        <Text style={styles.title}> Search for a Place </Text>
+        <Text style={styles.title}> Join to a Room </Text>
         <TextInput
           style={styles.searchInput}
-          value={this.state.cityState}
+          value={this.state.roomId}
           onChange={this.handleChange.bind(this)}
         />
         <TouchableHighlight
@@ -117,7 +137,14 @@ class Main extends React.Component{
           onPress={this.handleSubmit.bind(this)}
           underlayColor="white"
         >
-          <Text style={styles.buttonText}> SEARCH</Text>
+          <Text style={styles.buttonText}> Join! </Text>
+        </TouchableHighlight>
+        <TouchableHighlight
+          style={styles.button}
+          onPress={this.showPossibleTrips.bind(this)}
+          underlayColor="white"
+        >
+          <Text style={styles.buttonText}> Show Public TripLists </Text>
         </TouchableHighlight>
         <ActivityIndicatorIOS
           animating={this.state.isLoading}
