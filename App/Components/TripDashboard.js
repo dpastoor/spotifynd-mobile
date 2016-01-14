@@ -40,9 +40,7 @@ class TripDashboard extends React.Component {
           onPress={() => this.setTab('activities')}
         >
           <View>
-            <Text>
-                Hello
-            </Text>
+            <ActivityList activities={[]} />
           </View>
         </TabBarIOS.Item>
         <TabBarIOS.Item
@@ -51,9 +49,7 @@ class TripDashboard extends React.Component {
           onPress={() => this.setTab('messages')}
         >
           <View>
-            <Text>
-              Hello
-            </Text>
+            <Messages  />
           </View>
         </TabBarIOS.Item>
       </TabBarIOS>

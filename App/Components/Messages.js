@@ -48,7 +48,7 @@ var styles = StyleSheet.create({
 });
 
 let fixtures = ["test message 1", "test message 2"];
-class Notes extends React.Component{
+class Messages extends React.Component{
   constructor(props){
     super(props);
     this.ds = new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2})
@@ -90,7 +90,7 @@ class Notes extends React.Component{
           style={styles.searchInput}
           value={this.state.note}
           onChange={this.handleChange.bind(this)}
-          placeholder="New Note" />
+          placeholder="New Message" />
         <TouchableHighlight
           style={styles.button}
           onPress={this.handleSubmit.bind(this)}
@@ -119,4 +119,4 @@ class Notes extends React.Component{
 //  notes: React.PropTypes.object.isRequired
 //}
 
-module.exports = Notes;
+module.exports = Messages;
