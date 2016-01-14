@@ -1,4 +1,6 @@
 var React = require('react-native');
+var ActivitiesList = require('./ActivitiesList');
+var api = require('../Utils/api');
 var {
   Text,
   View,
@@ -28,18 +30,38 @@ var styles = StyleSheet.create({
 
 });
 
+
 class Trip extends React.Component{
   // if no styles are set it will just render an empty page
+
+  handleSubmit(trip) {
+    console.log('clicked trip with id: ' + trip);
+    api.getActivities(trip)
+    .then((res) => {
+      console.log(res)
+      this.props.navigator.push({
+        title: res.name,
+        component: ActivitiesList,
+        passProps: {activities: res.list}
+      });
+    })
+  }
+
   render() {
-    let {image, name, destination} = this.props.tripData;
+    let {_id, image, name, destination} = this.props.tripData;
     return (
-      <View style={styles.container}>
-        <View style={styles.rowContent}>
-          <Text style={styles.rowTitle}> {name} </Text>
-          <Text> {destination[0] + ', ' + destination[1] } </Text>
+      <TouchableHighlight
+        onPress={this.handleSubmit.bind(this, _id)}
+        underlayColor="white"
+      >
+        <View style={styles.container}>
+          <View style={styles.rowContent}>
+            <Text style={styles.rowTitle}> {name} </Text>
+            <Text> {destination[0] + ', ' + destination[1] } </Text>
+          </View>
+          <Image source={{uri: image}} style={styles.image}/>
         </View>
-        <Image source={{uri: image}} style={styles.image}/>
-      </View>
+      </TouchableHighlight>
 
     )
   }

@@ -2,7 +2,7 @@
  * Created by devin on 1/12/16.
  */
 var React = require('react-native');
-var Seperator = require('./Helpers/Seperator');
+var Separator = require('./Helpers/Separator');
 var Trip = require('./Trip');
 var {
   Text,
@@ -31,11 +31,19 @@ var styles = StyleSheet.create({
 class Dashboard extends React.Component{
   // if no styles are set it will just render an empty page
   render() {
+    console.log('navigator:');
+    console.log(this.props.navigator);
+
     let images = this.props.allTrips.map((trip, i) => {
      return (
        <View key={i}>
-         <Trip tripData={trip} />
-         <Seperator />
+         {/* this feels like a SUPER hacky way to navigate
+         but for speed will give nested navigator to components in current
+         implementation
+         TODO: properly implement navigation
+         */}
+         <Trip tripData={trip} navigator={this.props.navigator} />
+         <Separator />
        </View>
       )
     })
