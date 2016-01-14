@@ -30,19 +30,27 @@ var styles = StyleSheet.create({
 class Dashboard extends React.Component{
   // if no styles are set it will just render an empty page
   render() {
-    let images = this.props.allTrips.map((trip, i) => {
-     return (
-       <View key={i}>
-         {/* this feels like a SUPER hacky way to navigate
-         but for speed will give nested navigator to components in current
-         implementation
-         TODO: properly implement navigation
-         */}
-         <Trip tripData={trip} navigator={this.props.navigator} />
-         <Separator />
-       </View>
-      )
-    })
+    let images = this.props.allTrips.reduce((acc, trip, i) => {
+      if (!trip.destination[0]) {
+        return acc
+      } else {
+        return acc.concat(
+          (
+          <View key={i}>
+            {/* this feels like a SUPER hacky way to navigate
+             but for speed will give nested navigator to components in current
+             implementation
+             TODO: properly implement navigation
+             */}
+            <Trip tripData={trip} navigator={this.props.navigator} />
+            <Separator />
+          </View>
+          )
+        );
+      }
+
+    }, []);
+    
     return (
         <ScrollView style={styles.container} >
           {images}
