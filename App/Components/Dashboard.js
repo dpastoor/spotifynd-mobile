@@ -15,7 +15,6 @@ var {
 
 var styles = StyleSheet.create({
   container: {
-    marginTop: 65,
     flex: 1
   },
   image: {
@@ -31,9 +30,6 @@ var styles = StyleSheet.create({
 class Dashboard extends React.Component{
   // if no styles are set it will just render an empty page
   render() {
-    console.log('navigator:');
-    console.log(this.props.navigator);
-
     let images = this.props.allTrips.map((trip, i) => {
      return (
        <View key={i}>

@@ -15,8 +15,7 @@ var {
 
 var styles = StyleSheet.create({
   container: {
-    padding: 10,
-    flexDirection: 'row'
+    flex: 1
   },
   rowTitle: {
     color: '#48BBEC',

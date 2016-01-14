@@ -38,15 +38,16 @@ class Activity extends React.Component{
   }
   render() {
     let {photo, name, address, notes, rating} = this.props.activityData;
+    console.log('photo url' + photo);
     let additionalInfo = this.state.expanded ? (
       <Text> {notes} </Text>
     ) : <Text> {''}</Text>;
+
     return (
       <View style={styles.container}>
         <View style={styles.rowContent}>
           <Text style={styles.rowTitle}> {name} </Text>
           <Text> {address} </Text>
-          {additionalInfo}
         </View>
         <Image source={{uri: photo}} style={styles.image}/>
       </View>
@@ -56,3 +57,4 @@ class Activity extends React.Component{
 }
 
 module.exports = Activity;
+

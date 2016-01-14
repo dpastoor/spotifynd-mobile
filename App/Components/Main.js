@@ -92,7 +92,7 @@ class Main extends React.Component{
         console.log(res);
         // can navigate around from the NavigatorIOS component we set up in index.ios.js
         this.props.navigator.push({
-          title: 'Available Trip Playlists',
+          title: 'Trips',
           component: Dashboard,
           passProps: {allTrips: res}
         });

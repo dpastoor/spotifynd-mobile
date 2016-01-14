@@ -35,10 +35,8 @@ class Trip extends React.Component{
   // if no styles are set it will just render an empty page
 
   handleSubmit(trip) {
-    console.log('clicked trip with id: ' + trip);
     api.getActivities(trip)
     .then((res) => {
-      console.log(res)
       this.props.navigator.push({
         title: res.name,
         component: ActivitiesList,
