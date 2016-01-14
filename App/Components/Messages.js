@@ -17,7 +17,7 @@ var {
 var styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'column',
+    alignItems: 'stretch'
   },
   buttonText: {
     fontSize: 18,
@@ -39,6 +39,7 @@ var styles = StyleSheet.create({
   },
   rowContainer: {
     padding: 10,
+    //alignSelf: 'flex-end' --> aligns messages to right
   },
   footerContainer: {
     backgroundColor: '#E3E3E3',

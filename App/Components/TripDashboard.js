@@ -12,7 +12,10 @@ var {
 
 // if no styles are set it will just render an empty page
 var styles = StyleSheet.create({
-
+  container: {
+    flex: 1,
+    marginBottom: 50
+  }
 });
 
 class TripDashboard extends React.Component {
@@ -48,7 +51,7 @@ class TripDashboard extends React.Component {
           selected={this.state.selectedTab === 'messages'}
           onPress={() => this.setTab('messages')}
         >
-          <View>
+          <View style={styles.container}>
             <Messages  />
           </View>
         </TabBarIOS.Item>
