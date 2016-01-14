@@ -4,6 +4,8 @@
 var React = require('react-native');
 var Separator = require('./Helpers/Separator');
 var Trip = require('./Trip');
+var ActivitiesList = require('./ActivitiesList');
+var api = require('../Utils/api');
 var {
   Text,
   View,
@@ -29,31 +31,43 @@ var styles = StyleSheet.create({
 
 class Dashboard extends React.Component{
   // if no styles are set it will just render an empty page
+
+  handleSubmit(trip) {
+    api.getActivities(trip)
+      .then((res) => {
+        this.props.navigator.push({
+          title: res.name,
+          component: ActivitiesList,
+          passProps: {activities: res.list}
+        });
+      })
+  }
   render() {
-    let images = this.props.allTrips.reduce((acc, trip, i) => {
+    let trips = this.props.allTrips.reduce((acc, trip, i) => {
       if (!trip.destination[0]) {
         return acc
       } else {
         return acc.concat(
           (
-          <View key={i}>
-            {/* this feels like a SUPER hacky way to navigate
-             but for speed will give nested navigator to components in current
-             implementation
-             TODO: properly implement navigation
-             */}
-            <Trip tripData={trip} navigator={this.props.navigator} />
-            <Separator />
-          </View>
+          <TouchableHighlight
+            onPress={this.handleSubmit.bind(this, trip._id)}
+            underlayColor="white"
+            key={i}
+          >
+            <View >
+              <Trip tripData={trip} />
+              <Separator />
+            </View>
+          </TouchableHighlight>
           )
         );
       }
 
     }, []);
-    
+
     return (
         <ScrollView style={styles.container} >
-          {images}
+          {trips}
         </ScrollView>
     )
   }

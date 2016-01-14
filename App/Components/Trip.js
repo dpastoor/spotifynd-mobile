@@ -1,12 +1,10 @@
 var React = require('react-native');
-var ActivitiesList = require('./ActivitiesList');
 var api = require('../Utils/api');
 var {
   Text,
   View,
   StyleSheet,
-  Image,
-  TouchableHighlight
+  Image
   } = React;
 
 var styles = StyleSheet.create({
@@ -33,25 +31,9 @@ var styles = StyleSheet.create({
 
 class Trip extends React.Component{
   // if no styles are set it will just render an empty page
-
-  handleSubmit(trip) {
-    api.getActivities(trip)
-    .then((res) => {
-      this.props.navigator.push({
-        title: res.name,
-        component: ActivitiesList,
-        passProps: {activities: res.list}
-      });
-    })
-  }
-
   render() {
     let {_id, image, name, destination} = this.props.tripData;
     return (
-      <TouchableHighlight
-        onPress={this.handleSubmit.bind(this, _id)}
-        underlayColor="white"
-      >
         <View style={styles.container}>
           <View style={styles.rowContent}>
             <Text style={styles.rowTitle}> {name} </Text>
@@ -59,8 +41,6 @@ class Trip extends React.Component{
           </View>
           <Image source={{uri: image}} style={styles.image}/>
         </View>
-      </TouchableHighlight>
-
     )
   }
 }
