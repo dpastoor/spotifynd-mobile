@@ -29,14 +29,11 @@ class TripDashboard extends React.Component {
     }
 
     var myFirebaseRef = new Firebase('https://spotyfind.firebaseio.com/-K81Dja_qE5iLwjtJ16e')
-    this.itemsRef = myFirebaseRef.child('messages')
+    this.messagesRef = myFirebaseRef.child('messages')
 
   }
   componentDidMount() {
-    // When a todo is added
-    this.itemsRef.on('child_added', (dataSnapshot) => {
-      console.log('dataSnapshot in child_added: ')
-      console.log(dataSnapshot.val().message)
+    this.messagesRef.on('child_added', (dataSnapshot) => {
       this.setState({
         messages: this.state.messages.concat(dataSnapshot.val())
       })
@@ -54,16 +51,12 @@ class TripDashboard extends React.Component {
       message: message,
       user: 'Devin'
     }
-    this.itemsRef.push(newMessage)
+    this.messagesRef.push(newMessage)
   }
   componentWillUnmount() {
-    console.log('unmounting component');
-    this.itemsRef.off();
+    this.messagesRef.off();
   }
   render() {
-
-    console.log('firebaseref');
-    console.log(JSON.stringify(this.state.messages))
     return (
       <TabBarIOS>
         <TabBarIOS.Item
