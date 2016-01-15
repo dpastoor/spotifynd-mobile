@@ -29,13 +29,19 @@ class TripDashboard extends React.Component {
     }
 
     var myFirebaseRef = new Firebase('https://spotyfind.firebaseio.com/-K81Dja_qE5iLwjtJ16e')
-    this.messagesRef = myFirebaseRef.child('messages')
+    this.messagesRef = myFirebaseRef.child('messages');
+    this.activitiesRef = myFirebaseRef.child('playlist');
 
   }
   componentDidMount() {
     this.messagesRef.on('child_added', (dataSnapshot) => {
       this.setState({
         messages: this.state.messages.concat(dataSnapshot.val())
+      })
+    });
+    this.activitiesRef.on('child_added', (dataSnapshot) => {
+      this.setState({
+        activities: this.state.activities.concat(dataSnapshot.val())
       })
     });
 
@@ -64,8 +70,8 @@ class TripDashboard extends React.Component {
           selected={this.state.selectedTab === 'activities'}
           onPress={() => this.setTab('activities')}
         >
-          <View>
-            <ActivityList activities={[]} />
+          <View style={styles.container}>
+            <ActivityList activities={this.state.activities} />
           </View>
         </TabBarIOS.Item>
         <TabBarIOS.Item

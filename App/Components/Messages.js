@@ -55,7 +55,8 @@ class Messages extends React.Component{
       note: ''
     }
   }
-  componentDidUpdate() {
+
+  scrollToBottom() {
     let innerScrollView = this._scrollView.refs.InnerScrollView;
     let scrollView = this._scrollView.refs.ScrollView;
     requestAnimationFrame(() => {
@@ -71,6 +72,12 @@ class Messages extends React.Component{
         });
       });
     });
+  }
+  componentDidMount() {
+    this.scrollToBottom();
+  }
+  componentDidUpdate() {
+    this.scrollToBottom();
   }
 
   submitMessage(message) {
