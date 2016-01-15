@@ -29,7 +29,7 @@ class TripDashboard extends React.Component {
       activities: []
     }
 
-    var myFirebaseRef = new Firebase('https://spotyfind.firebaseio.com/-K81Dja_qE5iLwjtJ16e')
+    var myFirebaseRef = new Firebase('https://spotyfind.firebaseio.com/-K85jE1W6AzhQyah2c9H')
     this.messagesRef = myFirebaseRef.child('messages');
     this.activitiesRef = myFirebaseRef.child('playlist');
 
@@ -81,7 +81,10 @@ class TripDashboard extends React.Component {
           onPress={() => this.setTab('activities')}
         >
           <View style={styles.container}>
-            <ActivityList activities={this.state.activities} />
+            <ActivityList
+              activities={this.state.activities}
+              navigator={this.props.navigator}
+            />
           </View>
         </TabBarIOS.Item>
         <TabBarIOS.Item
