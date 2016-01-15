@@ -4,6 +4,7 @@
 var React = require('react-native');
 var Activity = require('./Activity');
 var Separator = require('./Helpers/Separator');
+var ActivityDetails = require('./ActivityDetails');
 var Messages = require('./Messages');
 var {
   Text,
@@ -39,12 +40,21 @@ class ActivitiesList extends React.Component {
   constructor(props) {
     super(props)
   }
+
+  handleSubmit(activity) {
+    this.props.navigator.push({
+      title: activity.activity.name || 'Activity',
+      component: ActivityDetails,
+      passProps: {activity}
+    });
+  }
   render() {
     console.log(this.props.activities);
     let activities = this.props.activities.map((activity) => {
       return (
         <TouchableHighlight
           underlayColor="white"
+          onPress={this.handleSubmit.bind(this, activity)}
           key={activity.id}
         >
           <View>
