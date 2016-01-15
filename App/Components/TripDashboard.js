@@ -41,7 +41,10 @@ class TripDashboard extends React.Component {
     });
     this.activitiesRef.on('child_added', (dataSnapshot) => {
       this.setState({
-        activities: this.state.activities.concat(dataSnapshot.val())
+        activities: this.state.activities.concat({
+                        id: dataSnapshot.key(),
+                        activity: dataSnapshot.val()
+                    })
       })
     });
 
@@ -61,6 +64,7 @@ class TripDashboard extends React.Component {
   }
   componentWillUnmount() {
     this.messagesRef.off();
+    this.activitiesRef.off();
   }
   render() {
     return (

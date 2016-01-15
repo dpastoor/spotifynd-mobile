@@ -41,14 +41,14 @@ class ActivitiesList extends React.Component {
   }
   render() {
     console.log(this.props.activities);
-    let activities = this.props.activities.map((activity, i) => {
+    let activities = this.props.activities.map((activity) => {
       return (
         <TouchableHighlight
           underlayColor="white"
-          key={i}
+          key={activity.id}
         >
           <View>
-            <Activity activityData={activity} />
+            <Activity activityData={activity.activity} />
             <Separator />
           </View>
         </TouchableHighlight>
