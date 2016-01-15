@@ -54,10 +54,9 @@ class Messages extends React.Component{
     super(props);
     this.ds = new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2})
     this.state = {
-      dataSource: this.ds.cloneWithRows(fixtures),
+      dataSource: this.ds.cloneWithRows(this.props.messages),
       note: '',
-      error: '',
-      messages: fixtures
+      error: ''
     }
   }
   handleChange(e){
@@ -65,24 +64,23 @@ class Messages extends React.Component{
       note: e.nativeEvent.text
     })
   }
-  handleSubmit(){
-    var note = this.state.note;
-    this.setState({
-      note: '',
-      dataSource: this.ds.cloneWithRows(this.state.messages.concat(this.state.note)),
-      messages: this.state.messages.concat(this.state.note)
-    });
 
-  }
   renderRow(rowData){
     return (
       <View>
         <View style={styles.rowContainer}>
-          <Text> {rowData} </Text>
+          <Text> {rowData.user}: </Text>
+          <Text> {rowData.message} </Text>
         </View>
         <Separator />
       </View>
     )
+  }
+  submitMessage(message) {
+    this.props.handleSubmit(message)
+    this.setState({
+      note: ''
+    });
   }
   footer(){
     return (
@@ -94,7 +92,7 @@ class Messages extends React.Component{
           placeholder="New Message" />
         <TouchableHighlight
           style={styles.button}
-          onPress={this.handleSubmit.bind(this)}
+          onPress={this.submitMessage.bind(this, this.state.note)}
           underlayColor="#88D4F5">
           <Text style={styles.buttonText}>Submit</Text>
         </TouchableHighlight>
@@ -102,6 +100,7 @@ class Messages extends React.Component{
     )
   }
   render(){
+    console.log(this.state.dataSource)
     return (
       <View style={styles.container}>
         <ListView

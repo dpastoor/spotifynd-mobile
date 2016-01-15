@@ -1,6 +1,7 @@
 var React = require('react-native');
 var ActivityList = require('./ActivitiesList');
 var Messages = require('./Messages');
+var Firebase = require('firebase');
 var {
   Text,
   View,
@@ -22,8 +23,25 @@ class TripDashboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedTab: 'activities'
+      selectedTab: 'activities',
+      messages: [],
+      activities: []
     }
+
+    var myFirebaseRef = new Firebase('https://spotyfind.firebaseio.com/-K81Dja_qE5iLwjtJ16e')
+    this.itemsRef = myFirebaseRef.child('messages')
+
+  }
+  componentDidMount() {
+    // When a todo is added
+    this.itemsRef.on('child_added', (dataSnapshot) => {
+      console.log('dataSnapshot in child_added: ')
+      console.log(dataSnapshot.val().message)
+      this.setState({
+        messages: this.state.messages.concat(dataSnapshot.val())
+      })
+    });
+
   }
 
   setTab(tabId) {
@@ -31,14 +49,21 @@ class TripDashboard extends React.Component {
       selectedTab: tabId
     })
   }
-
+  handleMessageSubmit(message) {
+    let newMessage = {
+      message: message,
+      user: 'Devin'
+    }
+    this.itemsRef.push(newMessage)
+  }
   render() {
-    console.log('connected to trip dashboard')
-    console.log('roomId:', this.props.roomId)
+
+    console.log('firebaseref');
+    console.log(JSON.stringify(this.state.messages))
     return (
       <TabBarIOS>
         <TabBarIOS.Item
-          systemIcon="more"
+          title="Itinerary"
           selected={this.state.selectedTab === 'activities'}
           onPress={() => this.setTab('activities')}
         >
@@ -47,12 +72,12 @@ class TripDashboard extends React.Component {
           </View>
         </TabBarIOS.Item>
         <TabBarIOS.Item
-          systemIcon="bookmarks"
+          title="Messages"
           selected={this.state.selectedTab === 'messages'}
           onPress={() => this.setTab('messages')}
         >
           <View style={styles.container}>
-            <Messages  />
+            <Messages messages={this.state.messages} handleSubmit={this.handleMessageSubmit.bind(this)} />
           </View>
         </TabBarIOS.Item>
       </TabBarIOS>

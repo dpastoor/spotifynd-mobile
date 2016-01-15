@@ -39,18 +39,11 @@ class ActivitiesList extends React.Component {
   constructor(props) {
     super(props)
   }
-  tempNavigateToMessages() {
-    this.props.navigator.push({
-      title: "Messages",
-      component: Messages
-    });
-  }
   render() {
     console.log(this.props.activities);
     let activities = this.props.activities.map((activity, i) => {
       return (
         <TouchableHighlight
-          onPress={this.tempNavigateToMessages.bind(this)}
           underlayColor="white"
           key={i}
         >
