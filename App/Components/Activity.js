@@ -32,16 +32,9 @@ class Activity extends React.Component{
   // if no styles are set it will just render an empty page
   constructor(props) {
     super(props);
-    this.state = {
-      expanded: false
-    }
   }
   render() {
     let {photo, name, address, notes, rating} = this.props.activityData;
-    console.log('photo url' + photo);
-    let additionalInfo = this.state.expanded ? (
-      <Text> {notes} </Text>
-    ) : <Text> {''}</Text>;
 
     return (
       <View style={styles.container}>
