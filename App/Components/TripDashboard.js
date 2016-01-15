@@ -2,6 +2,7 @@ var React = require('react-native');
 var ActivityList = require('./ActivitiesList');
 var Messages = require('./Messages');
 var Firebase = require('firebase');
+var _ = require('lodash');
 var {
   Text,
   View,
@@ -47,7 +48,12 @@ class TripDashboard extends React.Component {
                     })
       })
     });
-
+    this.activitiesRef.on('child_removed', (dataSnapshot) => {
+      console.log('activity removed with id:' + dataSnapshot.key());
+      this.setState({
+        activities: _.remove(this.state.activities, (activity) => activity.id !== dataSnapshot.key())
+      })
+    });
   }
 
   setTab(tabId) {
@@ -59,8 +65,8 @@ class TripDashboard extends React.Component {
     let newMessage = {
       message: message,
       user: 'Devin'
-    }
-    this.messagesRef.push(newMessage)
+    };
+    this.messagesRef.push(newMessage);
   }
   componentWillUnmount() {
     this.messagesRef.off();
