@@ -56,6 +56,10 @@ class TripDashboard extends React.Component {
     }
     this.itemsRef.push(newMessage)
   }
+  componentWillUnmount() {
+    console.log('unmounting component');
+    this.itemsRef.off();
+  }
   render() {
 
     console.log('firebaseref');

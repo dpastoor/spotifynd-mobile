@@ -58,8 +58,6 @@ class Messages extends React.Component{
   componentDidUpdate() {
     let innerScrollView = this._scrollView.refs.InnerScrollView;
     let scrollView = this._scrollView.refs.ScrollView;
-    console.log('innerScrollView')
-    console.log(innerScrollView)
     requestAnimationFrame(() => {
       innerScrollView.measure((innerScrollViewX, innerScrollViewY, innerScrollViewWidth, innerScrollViewHeight) => {
         scrollView.measure((scrollViewX, scrollViewY, scrollViewWidth, scrollViewHeight) => {
@@ -75,6 +73,17 @@ class Messages extends React.Component{
     });
   }
 
+  submitMessage(message) {
+    this.props.handleSubmit(message);
+    this.setState({
+      note: ''
+    });
+  }
+  handleChange(e){
+    this.setState({
+      note: e.nativeEvent.text
+    })
+  }
   render(){
     let allMessages = this.props.messages.map((message, i) => {
      return (
@@ -86,9 +95,25 @@ class Messages extends React.Component{
      )
     });
     return (
-      <ScrollView style={styles.container} ref={component => this._scrollView = component} >
-        {allMessages}
+      <View style={styles.container}>
+        <ScrollView  ref={component => this._scrollView = component} >
+          {allMessages}
         </ScrollView>
+        <View style={styles.footerContainer}>
+          <TextInput
+            style={styles.searchInput}
+            value={this.state.note}
+            onChange={this.handleChange.bind(this)}
+            placeholder="New Message"
+          />
+          <TouchableHighlight
+            style={styles.button}
+            onPress={this.submitMessage.bind(this, this.state.note)}
+            underlayColor="#88D4F5">
+            <Text style={styles.buttonText}>Submit</Text>
+          </TouchableHighlight>
+        </View>
+      </View>
     )
   }
 }
