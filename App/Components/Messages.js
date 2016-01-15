@@ -11,13 +11,13 @@ var {
   ListView,
   TextInput,
   StyleSheet,
+  ScrollView,
   TouchableHighlight
   } = React;
 
 var styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: 'stretch'
+    flex: 1
   },
   buttonText: {
     fontSize: 18,
@@ -48,73 +48,33 @@ var styles = StyleSheet.create({
   }
 });
 
-let fixtures = ["test message 1", "test message 2"];
 class Messages extends React.Component{
   constructor(props){
     super(props);
-    this.ds = new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2})
     this.state = {
-      dataSource: this.ds.cloneWithRows(this.props.messages),
-      note: '',
-      error: ''
+      note: ''
     }
   }
-  handleChange(e){
-    this.setState({
-      note: e.nativeEvent.text
-    })
-  }
 
-  renderRow(rowData){
-    return (
-      <View>
-        <View style={styles.rowContainer}>
-          <Text> {rowData.user}: </Text>
-          <Text> {rowData.message} </Text>
-        </View>
-        <Separator />
-      </View>
-    )
-  }
-  submitMessage(message) {
-    this.props.handleSubmit(message)
-    this.setState({
-      note: ''
-    });
-  }
-  footer(){
-    return (
-      <View style={styles.footerContainer}>
-        <TextInput
-          style={styles.searchInput}
-          value={this.state.note}
-          onChange={this.handleChange.bind(this)}
-          placeholder="New Message" />
-        <TouchableHighlight
-          style={styles.button}
-          onPress={this.submitMessage.bind(this, this.state.note)}
-          underlayColor="#88D4F5">
-          <Text style={styles.buttonText}>Submit</Text>
-        </TouchableHighlight>
-      </View>
-    )
-  }
   render(){
-    console.log(this.state.dataSource)
+    let allMessages = this.props.messages.map((message, i) => {
+     return (
+       <View key = {i} style={styles.rowContainer}>
+         <Text> {message.user}: </Text>
+         <Text> {message.message} </Text>
+         <Separator />
+       </View>
+     )
+    });
     return (
-      <View style={styles.container}>
-        <ListView
-          dataSource={this.state.dataSource}
-          renderRow={this.renderRow}
-        //  renderHeader={() => <Badge userInfo={this.props.userInfo}/>}
-        />
-        {this.footer()}
-      </View>
+      <ScrollView style={styles.container}>
+        {allMessages}
+        </ScrollView>
     )
   }
-};
+}
 
-//Notes.propTypes = {
+// Notes.propTypes = {
 //  userInfo: React.PropTypes.object.isRequired,
 //  notes: React.PropTypes.object.isRequired
 //}
