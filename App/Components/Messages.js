@@ -55,6 +55,25 @@ class Messages extends React.Component{
       note: ''
     }
   }
+  componentDidUpdate() {
+    let innerScrollView = this._scrollView.refs.InnerScrollView;
+    let scrollView = this._scrollView.refs.ScrollView;
+    console.log('innerScrollView')
+    console.log(innerScrollView)
+    requestAnimationFrame(() => {
+      innerScrollView.measure((innerScrollViewX, innerScrollViewY, innerScrollViewWidth, innerScrollViewHeight) => {
+        scrollView.measure((scrollViewX, scrollViewY, scrollViewWidth, scrollViewHeight) => {
+          var scrollTo = innerScrollViewHeight - scrollViewHeight + innerScrollViewY;
+
+          if (innerScrollViewHeight < scrollViewHeight) {
+            return;
+          }
+
+          this._scrollView.scrollTo(scrollTo);
+        });
+      });
+    });
+  }
 
   render(){
     let allMessages = this.props.messages.map((message, i) => {
@@ -67,7 +86,7 @@ class Messages extends React.Component{
      )
     });
     return (
-      <ScrollView style={styles.container}>
+      <ScrollView style={styles.container} ref={component => this._scrollView = component} >
         {allMessages}
         </ScrollView>
     )
