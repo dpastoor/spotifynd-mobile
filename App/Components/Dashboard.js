@@ -35,10 +35,11 @@ class Dashboard extends React.Component{
   handleSubmit(trip) {
     api.getActivities(trip)
       .then((res) => {
+        let results =res.list.map((r) => ({'id': r._id, 'activity': r}));
         this.props.navigator.push({
           title: res.name,
           component: ActivitiesList,
-          passProps: {activities: res.list}
+          passProps: {activities: results}
         });
       })
   }
