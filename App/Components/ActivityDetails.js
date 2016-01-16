@@ -2,6 +2,7 @@
  * Created by devin on 1/14/16.
  */
 var React = require('react-native');
+var Separator = require('./Helpers/Separator');
 var {
   Text,
   View,
@@ -14,21 +15,32 @@ var {
 // if no styles are set it will just render an empty page
 var styles = StyleSheet.create({
   container: {
-    flex: 1
+    marginTop: 80,
+    flex: 1,
+    flexDirection: 'column',
+    flexWrap: 'wrap'
   },
   rowTitle: {
     color: '#48BBEC',
-    fontSize: 25
+    fontSize: 30
+  },
+  rowInfoTitle: {
+    color: '#7A7A7A',
+    fontSize: 23
+  },
+  rowInfo: {
+    fontSize: 19,
+    paddingBottom: 2
   },
   rowContent: {
     flex: 2,
-    alignSelf: 'flex-start'
+    paddingRight: 15,
+    paddingLeft: 15
   },
   image: {
-    height: 125,
-    width: 125,
-    borderRadius: 65,
-    marginTop: 100,
+    height: 190,
+    width: 190,
+    borderRadius: 95,
     alignSelf: 'center'
   }
 });
@@ -40,18 +52,29 @@ class ActivityDetails extends React.Component {
   }
 
   render() {
-    let {photo, name, address, notes, rating} = this.props.activity.activity;
-    console.log(this.props.activity)
+    let {photo, name, address, notes, rating, url} = this.props.activity.activity;
 
     return (
         <View style={styles.container} >
-          <Image source={{uri: photo}} style={styles.image}/>
+          <View>
+            <Image source={{uri: photo}} style={styles.image}/>
+          </View>
           <ScrollView >
           <View style={styles.rowContent}>
             <Text style={styles.rowTitle}> {name} </Text>
-            <Text> Address - {address} </Text>
-            <Text> Notes - {notes} </Text>
-            <Text> Rating - {rating} </Text>
+            <Separator />
+            <Text style={styles.rowInfoTitle}> Address </Text>
+            <Text style={styles.rowInfo}> {address} </Text>
+            <Separator />
+            <Text style={styles.rowInfoTitle}> Notes </Text>
+            <Text style={styles.rowInfo}> {notes} </Text>
+            <Separator />
+            <Text style={styles.rowInfoTitle}> Rating </Text>
+            <Text style={styles.rowInfo}> {rating} </Text>
+            <Separator />
+            <Text style={styles.rowInfoTitle}> Website </Text>
+            <Text style={styles.rowInfo}> {url} </Text>
+            <Separator />
           </View>
           </ScrollView>
         </View>
